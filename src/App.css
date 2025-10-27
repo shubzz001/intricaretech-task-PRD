@@ -464,9 +464,9 @@ body {
   color: rgba(0, 0, 0, 0.85);
 }
 
-.sidebar .nav-item.active {
+/* .sidebar .nav-item.active {
   background: rgba(12, 102, 228, 0.08);
-}
+} */
 
 /* softCard common look */
 .softCard {
