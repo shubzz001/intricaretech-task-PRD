@@ -40,7 +40,10 @@
 .read-the-docs {
   color: #888;
 } */
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+=======
+>>>>>>> cb7e52386daefa1f1d75da5e9e117ae27f2d7c81
 
 
 /* APP LAYOUT */
@@ -385,6 +388,7 @@
   background: #f7f8f9;
   color: #333;
   padding: 8px 16px;
+<<<<<<< HEAD
 }
 
 
@@ -519,4 +523,6 @@ body {
   .content-container {
     gap: 12px;
   }
+=======
+>>>>>>> cb7e52386daefa1f1d75da5e9e117ae27f2d7c81
 }

@@ -50,10 +50,17 @@ const Dashboard = ({ products = [], categories = [], handleAddNewClick }) => {
                 </Button>
             </Box>
             <Grid container spacing={3} sx={{ mb: 4 }}>
+<<<<<<< HEAD
                 <Grid item xs={12} sm={6}>
                     <StatCard title="Total Products" value={totalProducts} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
+=======
+                <Grid xs={12} sm={6}>
+                    <StatCard title="Total Products" value={totalProducts} />
+                </Grid>
+                <Grid xs={12} sm={6}>
+>>>>>>> cb7e52386daefa1f1d75da5e9e117ae27f2d7c81
                     <StatCard title="Total Categories" value={totalCategories} />
                 </Grid>
             </Grid>
