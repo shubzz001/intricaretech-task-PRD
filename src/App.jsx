@@ -19,6 +19,7 @@ import Dashboard from './components/Dashboard';
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import SearchBar from './components/SearchFilter';
+import ProductDetailModal from './components/ProductDetailModal';
 import ToastProvider, { useToast } from './components/ToastProvider';
 
 // Your theme remains the same...
@@ -65,6 +66,8 @@ function App() {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
       if (status === 'idle') {
@@ -111,6 +114,16 @@ function App() {
       setActiveView('addProduct');
     };
 
+    const handleRowClick = (product) => {
+      setSelectedProduct(product);
+      setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+      setSelectedProduct(null);
+    };
+
     const filteredProducts = useMemo(() => {
       return products
         .filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -145,6 +158,7 @@ function App() {
                 products={filteredProducts}
                 onEdit={handleEditClick}
                 onDelete={handleDeleteProduct}
+                onRowClick={handleRowClick}
               />
             </div>
           );
@@ -179,6 +193,11 @@ function App() {
             <Container maxWidth="lg">
               {status === 'failed' && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
               {renderContent()}
+              <ProductDetailModal
+                product={selectedProduct}
+                open={isModalOpen}
+                onClose={handleCloseModal}
+              />
             </Container>
           </Box>
         </Box>
