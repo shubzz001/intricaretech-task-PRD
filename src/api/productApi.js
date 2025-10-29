@@ -25,7 +25,6 @@ export const getCategories = async () => {
 
 export const addProduct = async (product) => {
     try {
-        // NOTE: The API will return a new product with an ID, but it won't actually be saved on the server.
         const response = await axios.post(API_URL, product);
         return response.data;
     } catch (error) {

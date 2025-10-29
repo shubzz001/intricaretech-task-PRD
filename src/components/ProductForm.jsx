@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography, Autocomplete } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ProductForm = ({ onSave, productToEdit, setProductToEdit, categories }) => {
     const initialFormState = { title: '', price: '', description: '', category: null };
     const [product, setProduct] = useState(initialFormState);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (productToEdit) {
             setProduct(productToEdit);
         } else {
-            setProduct(initialFormState);
+            setProduct(initialFormState); 
         }
     }, [productToEdit]);
 
@@ -33,6 +35,7 @@ const ProductForm = ({ onSave, productToEdit, setProductToEdit, categories }) =>
     const handleCancel = () => {
         setProductToEdit(null);
         setProduct(initialFormState);
+        navigate('/products'); 
     };
 
     return (
@@ -47,7 +50,7 @@ const ProductForm = ({ onSave, productToEdit, setProductToEdit, categories }) =>
                     flexDirection: 'column',
                     gap: 2,
                     p: 3,
-                    }}
+                }}
             >
                 <Typography variant="h4" component="h1" gutterBottom>
                     {productToEdit ? 'Edit Product' : 'Add New Product'}

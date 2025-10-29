@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Table,
     TableBody,
@@ -6,13 +6,18 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    TableFooter,
     Paper,
     Button,
     Box,
-    Typography
+    Typography,
+    TablePagination
 } from '@mui/material';
 
 const ProductList = ({ products, onEdit, onDelete, onRowClick }) => {
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
     if (!products.length) {
         return (
             <Typography sx={{ mt: 4, textAlign: 'center' }} color="text.secondary">
@@ -21,10 +26,21 @@ const ProductList = ({ products, onEdit, onDelete, onRowClick }) => {
         );
     }
 
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const paginatedProducts = products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
     return (
         <div className='softCard'>
-            <TableContainer component={Paper} sx={{ mt: 3 }}>
-                <Table sx={{ minWidth: 650 }} aria-label="product table">
+            <TableContainer component={Paper} sx={{ mt: 3, maxHeight: 500, overflow: 'auto' }}>
+                <Table stickyHeader sx={{ minWidth: 650 }} aria-label="product table">
                     <TableHead sx={{ bgcolor: 'action.hover' }}>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -35,7 +51,7 @@ const ProductList = ({ products, onEdit, onDelete, onRowClick }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products.map((product) => (
+                        {paginatedProducts.map((product) => (
                             <TableRow
                                 key={product.id}
                                 hover
@@ -64,6 +80,24 @@ const ProductList = ({ products, onEdit, onDelete, onRowClick }) => {
                             </TableRow>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                colSpan={5}
+                                count={products.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                sx={{
+                                    position: 'sticky',
+                                    bottom: 0,
+                                    bgcolor: 'background.paper',
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </div>
